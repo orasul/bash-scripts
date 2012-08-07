@@ -13,25 +13,38 @@ do
   esac
 done
 
-#if [ ${#} -le 0 ]
-#then
-#  usage
-#  exit 1
-#fi
+# NUMBERS - should be parsed, as it can contain "-" and ","
 
-IFS_OLD=$IFS
-IFS=","
-count=0
-
-for i in $NUMBERS
-do
-  count=$(( count+1 ))
-  eval N${count}=$i
-done
-
-IFS=$IFS_OLD
+##IFS_OLD=$IFS
+#IFS=","
+#count=0
+#
+#for i in $NUMBERS
+#do
+#  count=$(( count+1 ))
+#  eval N[$count]=$i
+#done
+#
+#IFS=$IFS_OLD
+#
+#echo ${N[@]}
+#for s in ${N[*]}
+#do
+#  CURRN=${N[s]}
+#  echo $CURRN
+#done
 
 while read line
-do 
-  echo ${line:$N1:$N2}
+do
+  IFS_OLD=$IFS
+  IFS=","
+  for i in $NUMBERS
+  do
+    [[ ${i} =~ "-" ]] && echo -n ${line:${i%%-*}-1:${i##*-}} || echo -n ${line:${i}-1:1}
+  done
+  IFS=$IFS_OLD
+  echo
 done
+
+
+
