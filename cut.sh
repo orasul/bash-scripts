@@ -15,6 +15,8 @@ do
   esac
 done
 
+shift $(($OPTIND - 1))
+
 DELIMETR=${DELIMETR:=" "}
 
 characters ()
@@ -59,7 +61,7 @@ do
   then
     fields $DELIMETR $FIELDS
   fi
-done
+done <$1
 
 
 
