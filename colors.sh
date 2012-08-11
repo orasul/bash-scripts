@@ -16,3 +16,13 @@ BOLD_VIOLET="\033[1;35m"
 BIRUZ="\033[0;36m"
 BOLD_BIRUZ="\033[1;36m"
 NO_COLOR="\033[0m"
+
+# Output colors for review.
+DIRNAME=`dirname $0`
+FILENAME=`basename $0`
+for i in `tail -n +2 ${DIRNAME}/${FILENAME} | head -17`
+do
+  CLR=`echo $i | cut -f1 -d=`
+  eval echo -ne $`echo ${CLR}`
+  echo $CLR
+done
