@@ -11,7 +11,11 @@ then
   exit 1
 fi
 
-while read line
+exec 9<$1
+
+while read -u 9 line
 do 
   echo $line
-done <$1
+done
+
+exec 9<&-
